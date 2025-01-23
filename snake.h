@@ -10,9 +10,10 @@ typedef struct Node
 } Node;
 
 // Хранит всю змею
+extern uint16_t length;
 extern Node tail[20*20];
 
-extern char dir; // Определяет направление движения
+extern volatile char dir; // Определяет направление движения
                  // 0 - вверх
                  // 1 - вправо
                  // 2 - вниз
@@ -25,3 +26,5 @@ void init_snake();
 // Добавляет символы змеи на поле
 void draw_snake();
 
+// Пересчитывает координаты
+void move_snake();

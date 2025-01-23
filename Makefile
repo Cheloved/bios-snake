@@ -14,7 +14,7 @@ LDFLAGS := -m elf_i386 -T linker.ld -nostdlib --oformat binary
 BOOT_SRC := boot.asm
 STAGE2_ENTRY := stage2_entry.asm
 STAGE2_SRCS := stage2.c $(wildcard *.c)
-STAGE2_OBJS := $(STAGE2_SRCS:.c=.o) stage2_entry.o
+STAGE2_OBJS := stage2_entry.o $(STAGE2_SRCS:.c=.o)
 
 # Цели по умолчанию
 all: disk.img
@@ -42,7 +42,8 @@ disk.img: boot.bin stage2.bin
 
 # Запуск в QEMU
 run: disk.img
-	$(QEMU) -nographic -drive format=raw,file=$<
+	# $(QEMU) -nographic -drive format=raw,file=$<
+	$(QEMU) -display curses -serial stdio -drive format=raw,file=$<
 
 # Очистка
 clean:
