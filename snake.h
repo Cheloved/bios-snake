@@ -1,6 +1,5 @@
 #pragma once
 #include <stdint.h>
-#include "map.h"
 
 // Для хранения координат каждой секции
 typedef struct Node
@@ -11,7 +10,7 @@ typedef struct Node
 
 // Хранит всю змею
 extern uint16_t length;
-extern Node tail[20*20];
+extern Node tail[80*25];
 
 // Определяет направление движения*/
 // 0 - вверх
@@ -26,6 +25,9 @@ void init_snake();
 
 // Добавляет символы змеи на поле
 void draw_snake();
+
+// Стираетсимволы змеи на поле
+void erase_snake();
 
 // Пересчитывает координаты
 void move_snake();

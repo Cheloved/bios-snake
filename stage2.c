@@ -1,7 +1,6 @@
 #include <stdint.h>
 
 #include "snake.h"
-#include "map.h"
 #include "screen.h"
 #include "time.h"
 #include "keyboard.h"
@@ -10,12 +9,8 @@ void main()
 {
     print_string("Stage 2 (C) loaded\r\n");
     clear_screen();
-    reset_map();
-    /*print_string(map);*/
     init_snake();
-
-    symbol = 0x99;
-    char test[13] = "Symbol: ++\r\n";
+    draw_map();
 
     dir = 2;
     length = 3;
@@ -28,19 +23,14 @@ void main()
     {
         // Таймер на основе системных тиков
         uint16_t current_time = get_ticks();
+        update_dir(symbol);
 
-        if ( current_time - last_update >= 10 )
+        if ( current_time - last_update >= 5 )
         {
-            clear_screen();
-
-            draw_snake(); 
-            print_string(map);
-            update_dir(symbol);
+            // Перерисовать змейку
+            erase_snake();
             move_snake();
-
-            test[8] = "0123456789ABCDEF"[ symbol >> 4 ];
-            test[9] = "0123456789ABCDEF"[ symbol & 0x0F ];
-            print_string(test);
+            draw_snake(); 
 
             last_update = current_time;
         }

@@ -1,7 +1,7 @@
 #include "snake.h"
 
 uint16_t length = 0;
-Node tail[20*20] = {0};
+Node tail[80*25] = {0};
 volatile uint8_t dir = 2;
 
 void init_snake()
@@ -10,10 +10,27 @@ void init_snake()
         tail[i] = (Node){ -1, -1 };
 }
 
+void erase_snake()
+{
+    volatile char* vmem = (volatile char*)0xB8000;
+
+    for ( uint16_t i = 0; i < 80*25; i++ )
+    {
+        if ( tail[i].x == -1 )
+            break;
+
+        // Очистить клетку
+        vmem[(tail[i].y*80+tail[i].x)*2] = ' ';
+        vmem[(tail[i].y*80+tail[i].x)*2+1] = 0x07;
+    }
+}
+
 void draw_snake()
 {
-    reset_map();
-    for ( uint16_t i = 0; i < 20*20; i++ )
+
+    volatile char* vmem = (volatile char*)0xB8000;
+
+    for ( uint16_t i = 0; i < 80*25; i++ )
     {
         if ( tail[i].x == -1 )
             break;
@@ -22,7 +39,8 @@ void draw_snake()
         if ( i == 0 )
             c = 'O';
 
-        map[ tail[i].y*22 + tail[i].x ] = c;
+        vmem[(tail[i].y*80+tail[i].x)*2] = c;
+        vmem[(tail[i].y*80+tail[i].x)*2+1] = 0x07;
     }
 }
 
