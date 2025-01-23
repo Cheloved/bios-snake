@@ -23,7 +23,7 @@ void draw_food()
     volatile char* vmem = (volatile char*)0xB8000;
 
     vmem[(food.y*80+food.x)*2] = 'x';
-    vmem[(food.y*80+food.x)*2+1] = 0x8A;
+    vmem[(food.y*80+food.x)*2+1] = 0x0A;
 }
 
 void erase_snake()
