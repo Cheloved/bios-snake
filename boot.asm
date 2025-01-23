@@ -11,6 +11,10 @@ start:
     mov ss, ax
     mov sp, 0x7c00
 
+    ; Установка текстового режима 80х25
+    mov ax, 0x0003
+    int 0x10
+
     ; Начальный текст
     mov si, msg
     call print_string
