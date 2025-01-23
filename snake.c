@@ -2,7 +2,7 @@
 
 uint16_t length = 0;
 Node tail[20*20] = {0};
-volatile char dir = 2;
+volatile uint8_t dir = 2;
 
 void init_snake()
 {

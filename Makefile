@@ -45,8 +45,11 @@ run: disk.img
 	# $(QEMU) -nographic -drive format=raw,file=$<
 	$(QEMU) -display curses -serial stdio -drive format=raw,file=$<
 
+gccs:
+	$(CC) $(CFLAGS) -s -c screen.c -o screen.s
+
 # Очистка
 clean:
-	rm -f *.o *.bin *.img
+	rm -f *.o *.bin *.img *.s
 
 .PHONY: all run clean

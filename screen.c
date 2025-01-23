@@ -18,6 +18,7 @@ void print_string(const char* str)
                 : "a" (0x0e00 | *str++), "b" (0x000f)
             );
     }
+    return;
 }
 
 void clear_screen()
@@ -30,4 +31,5 @@ void clear_screen()
             :
             : "a" (0x0003)
         );
+    return;
 }

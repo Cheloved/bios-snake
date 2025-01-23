@@ -7,4 +7,5 @@ SECTIONS {
     .data : { *(.data) }
     .rodata : { *(.rodata) }
     .bss : { *(.bss) }
+    /DISCARD/ : { *(.note*) }
 }

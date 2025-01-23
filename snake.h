@@ -13,11 +13,12 @@ typedef struct Node
 extern uint16_t length;
 extern Node tail[20*20];
 
-extern volatile char dir; // Определяет направление движения
-                 // 0 - вверх
-                 // 1 - вправо
-                 // 2 - вниз
-                 // 3 - влево
+// Определяет направление движения*/
+// 0 - вверх
+// 1 - вправо
+// 2 - вниз
+// 3 - влево
+extern volatile uint8_t dir __attribute__((aligned(2)));
 
 // Инициализация всех сегментов
 // координатами -1, -1

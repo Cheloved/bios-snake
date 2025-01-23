@@ -1,40 +1,18 @@
 #include "keyboard.h"
 
-volatile uint8_t key_pressed = 0;
-volatile uint8_t current_key = 0;
+uint8_t symbol = 0x00;
 
 void update_dir(uint8_t scancode)
 {
+    symbol = symbol & (uint8_t)(~0x80);
+    __asm__ __volatile__ ("cli");
     switch ( scancode )
     {
-        case 0x11: dir = 0; break; // W
-        case 0x20: dir = 1; break; // D
-        case 0x1F: dir = 2; break; // S
-        case 0x1E: dir = 3; break; // A
+        case 0x11: if(dir != 2) dir = 0; break; // W
+        case 0x20: if(dir != 3) dir = 1; break; // D
+        case 0x1F: if(dir != 0) dir = 2; break; // S
+        case 0x1E: if(dir != 1) dir = 3; break; // A
     }
+    __asm__ __volatile__ ("sti");
 }
 
-/*void __attribute__((interrupt)) kbd_handler(void)*/
-void kbd_handler()
-{
-    // Чтение с порта клавиатуры
-    uint8_t scancode;
-    __asm__ __volatile__ ("inb $0x60, %0" : "=a"(scancode));
-
-    // Игнорируем отпускание клавиши
-    if ( scancode & 0x80 )
-        return;
-
-    /*key_pressed = 1;*/
-    /*current_key = scancode;*/
-
-    char msg[] = "Key: 00\r\n";
-    msg[5] = "0123456789ABCDEF"[ scancode >> 4 ];
-    msg[6] = "0123456789ABCDEF"[ scancode & 0x0F ];
-    print_string(msg);
-    /**/
-    /*print_string("Key pressed\r\n");*/
-
-    update_dir(scancode);
-    /*return;*/
-}
