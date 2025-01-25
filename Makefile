@@ -43,7 +43,8 @@ disk.img: boot.bin stage2.bin
 # Запуск в QEMU
 run: disk.img
 	# $(QEMU) -nographic -drive format=raw,file=$<
-	$(QEMU) -display curses -serial stdio -drive format=raw,file=$<
+	# $(QEMU) -display curses -serial stdio -drive format=raw,file=$<
+	$(QEMU) -display none -vnc :0 -drive format=raw,file=$<
 
 gccs:
 	$(CC) $(CFLAGS) -s -c screen.c -o screen.s

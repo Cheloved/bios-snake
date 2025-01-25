@@ -16,3 +16,8 @@ void update_dir(uint8_t scancode)
     __asm__ __volatile__ ("sti");
 }
 
+void wait_char()
+{
+    uint8_t buffer = symbol;
+    while ( symbol == buffer ) asm volatile ("hlt");
+}

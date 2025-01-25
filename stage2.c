@@ -8,6 +8,8 @@
 void main()
 {
     print_string("Stage 2 (C) loaded\r\n");
+    print_string("\nPress any key to start!\r\n");
+    wait_char();
     clear_screen();
     init_snake();
     draw_map();

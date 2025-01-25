@@ -6,3 +6,4 @@
 extern uint8_t symbol;
 
 void update_dir(uint8_t scancode);
+void wait_char();
